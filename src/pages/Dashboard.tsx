@@ -39,18 +39,27 @@ const Dashboard = () => {
       const { data: roles, error } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .maybeSingle();
 
       if (error) throw error;
 
-      const hasAdminRole = roles?.some((r) => r.role === "admin");
+      const hasAdminRole = roles?.role === "admin";
       setIsAdmin(hasAdminRole);
+
+      // Auto-redirect based on role
+      if (hasAdminRole) {
+        navigate("/admin");
+      } else {
+        navigate("/invoice");
+      }
     } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       });
+      navigate("/auth");
     } finally {
       setLoading(false);
     }

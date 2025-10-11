@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, User, Lock, Sparkles } from "lucide-react";
+import { Loader2, User, Lock, Sparkles, ShieldCheck } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<"admin" | "user">("user");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -32,19 +34,31 @@ export const AuthForm = () => {
           throw new Error("Invalid username or password");
         }
 
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: profileData.email,
           password,
         });
 
         if (error) throw error;
 
+        // Check user role and redirect accordingly
+        const { data: userRoles } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", data.user.id)
+          .maybeSingle();
+
         toast({
           title: "Welcome back!",
           description: `Signed in as ${username}`,
         });
         
-        navigate("/dashboard");
+        // Redirect based on role
+        if (userRoles?.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/invoice");
+        }
       } else {
         // For signup, create a temporary email from username
         const tempEmail = `${username.toLowerCase().replace(/[^a-z0-9]/g, '')}@invoicehub.app`;
@@ -60,7 +74,7 @@ export const AuthForm = () => {
           throw new Error("Username already taken");
         }
 
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email: tempEmail,
           password,
           options: {
@@ -73,9 +87,23 @@ export const AuthForm = () => {
 
         if (error) throw error;
 
+        // Create user role entry
+        if (data.user) {
+          const { error: roleError } = await supabase
+            .from("user_roles")
+            .insert({
+              user_id: data.user.id,
+              role: role,
+            });
+
+          if (roleError) {
+            console.error("Error creating role:", roleError);
+          }
+        }
+
         toast({
           title: "Account created!",
-          description: "You can now sign in with your username.",
+          description: `You can now sign in as ${role}.`,
         });
         
         setIsLogin(true);
@@ -151,6 +179,35 @@ export const AuthForm = () => {
               className="glass border-white/20 focus:border-primary/50 transition-all"
             />
           </div>
+
+          {!isLogin && (
+            <div className="space-y-3">
+              <Label className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4" />
+                Select Role
+              </Label>
+              <RadioGroup
+                value={role}
+                onValueChange={(value) => setRole(value as "admin" | "user")}
+                className="flex gap-4"
+              >
+                <div className="flex items-center space-x-2 glass px-4 py-3 rounded-lg border border-white/20 flex-1 cursor-pointer hover:border-primary/50 transition-all">
+                  <RadioGroupItem value="admin" id="admin" />
+                  <Label htmlFor="admin" className="cursor-pointer flex-1">
+                    <div className="font-semibold">Admin</div>
+                    <div className="text-xs text-muted-foreground">Full access</div>
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2 glass px-4 py-3 rounded-lg border border-white/20 flex-1 cursor-pointer hover:border-accent/50 transition-all">
+                  <RadioGroupItem value="user" id="user" />
+                  <Label htmlFor="user" className="cursor-pointer flex-1">
+                    <div className="font-semibold">User</div>
+                    <div className="text-xs text-muted-foreground">Create invoices</div>
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+          )}
 
           <Button
             type="submit"
