@@ -21,26 +21,19 @@ export const AuthForm = () => {
 
     try {
       if (isLogin) {
-        // For login, we need to query the username to get the email
+        // For login, query the username to get the email
         const { data: profileData, error: profileError } = await supabase
           .from("profiles")
-          .select("id")
+          .select("email")
           .eq("username", username)
           .maybeSingle();
 
-        if (profileError || !profileData) {
-          throw new Error("Invalid username or password");
-        }
-
-        // Get the user's email from auth.users
-        const { data: { user }, error: userError } = await supabase.auth.admin.getUserById(profileData.id);
-        
-        if (userError || !user?.email) {
+        if (profileError || !profileData || !profileData.email) {
           throw new Error("Invalid username or password");
         }
 
         const { error } = await supabase.auth.signInWithPassword({
-          email: user.email,
+          email: profileData.email,
           password,
         });
 
