@@ -22,7 +22,7 @@ const Index = () => {
             <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
           </div>
           <h1 className="text-5xl sm:text-7xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
-            Invoice Hub
+            Insta Bill
           </h1>
           <p className="text-lg sm:text-2xl text-muted-foreground max-w-3xl mx-auto">
             Modern, secure, and instant invoice generation with stunning design
