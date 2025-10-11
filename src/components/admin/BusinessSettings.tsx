@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { useToast } from "@/hooks/use-toast";
 import { Upload, Loader2 } from "lucide-react";
 
@@ -128,11 +128,9 @@ export const BusinessSettings = () => {
   };
 
   return (
-    <Card className="shadow-soft">
-      <CardHeader>
-        <CardTitle>Business Information</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+    <div className="glass-card p-6">
+      <h2 className="text-2xl font-bold mb-6">Business Information</h2>
+      <div className="space-y-6">
         <div className="space-y-2">
           <Label>Business Logo</Label>
           <div className="flex items-center gap-4">
@@ -152,12 +150,13 @@ export const BusinessSettings = () => {
                 className="hidden"
                 id="logo-upload"
               />
-              <Label htmlFor="logo-upload">
+              <Label htmlFor="logo-upload" className="cursor-pointer">
                 <Button
                   type="button"
                   variant="outline"
                   disabled={uploading}
-                  onClick={() => document.getElementById("logo-upload")?.click()}
+                  className="glass border-white/20 hover:border-primary/50"
+                  asChild
                 >
                   {uploading ? (
                     <>
@@ -183,6 +182,7 @@ export const BusinessSettings = () => {
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
             placeholder="Enter business name"
+            className="glass border-white/20 focus:border-primary/50"
           />
         </div>
 
@@ -194,18 +194,19 @@ export const BusinessSettings = () => {
             onChange={(e) => setBusinessAddress(e.target.value)}
             placeholder="Enter business address"
             rows={3}
+            className="glass border-white/20 focus:border-primary/50"
           />
         </div>
 
         <Button
           onClick={handleSave}
           disabled={loading || !businessName || !businessAddress}
-          className="bg-gradient-primary hover:opacity-90"
+          className="bg-gradient-primary hover:opacity-90 shadow-glass"
         >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Save Changes
         </Button>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, DollarSign, FileText, TrendingUp } from "lucide-react";
 import { format } from "date-fns";
@@ -57,80 +56,70 @@ export const SalesDashboard = () => {
 
   return (
     <div className="space-y-6">
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card className="shadow-soft">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-primary">
-              ${totalRevenue.toFixed(2)}
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="glass-card p-6">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-sm font-medium text-muted-foreground">Total Revenue</p>
+            <DollarSign className="h-5 w-5 text-primary" />
+          </div>
+          <p className="text-3xl font-bold text-primary">
+            ${totalRevenue.toFixed(2)}
+          </p>
+        </div>
 
-        <Card className="shadow-soft">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Invoices</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-primary">{invoices.length}</div>
-          </CardContent>
-        </Card>
+        <div className="glass-card p-6">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-sm font-medium text-muted-foreground">Total Invoices</p>
+            <FileText className="h-5 w-5 text-accent" />
+          </div>
+          <p className="text-3xl font-bold text-accent">{invoices.length}</p>
+        </div>
 
-        <Card className="shadow-soft">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Average Invoice</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-primary">
-              ${invoices.length > 0 ? (totalRevenue / invoices.length).toFixed(2) : "0.00"}
-            </div>
-          </CardContent>
-        </Card>
+        <div className="glass-card p-6">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-sm font-medium text-muted-foreground">Average Invoice</p>
+            <TrendingUp className="h-5 w-5 text-primary" />
+          </div>
+          <p className="text-3xl font-bold text-primary">
+            ${invoices.length > 0 ? (totalRevenue / invoices.length).toFixed(2) : "0.00"}
+          </p>
+        </div>
       </div>
 
-      <Card className="shadow-soft">
-        <CardHeader>
-          <CardTitle>Recent Invoices</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {invoices.map((invoice) => (
-              <div
-                key={invoice.id}
-                className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
-              >
-                <div className="flex-1">
-                  <p className="font-semibold">{invoice.customer_name}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {invoice.customer_phone}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {format(new Date(invoice.created_at), "MMM dd, yyyy 'at' h:mm a")}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm text-muted-foreground">
-                    #{invoice.invoice_number}
-                  </p>
-                  <p className="text-lg font-bold text-primary">
-                    ${parseFloat(invoice.total_amount.toString()).toFixed(2)}
-                  </p>
-                </div>
+      <div className="glass-card p-6">
+        <h3 className="text-2xl font-bold mb-6">Recent Invoices</h3>
+        <div className="space-y-4">
+          {invoices.map((invoice) => (
+            <div
+              key={invoice.id}
+              className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 glass rounded-lg border border-white/10 hover:border-primary/30 transition-all"
+            >
+              <div className="flex-1">
+                <p className="font-semibold text-lg">{invoice.customer_name}</p>
+                <p className="text-sm text-muted-foreground">
+                  {invoice.customer_phone}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {format(new Date(invoice.created_at), "MMM dd, yyyy 'at' h:mm a")}
+                </p>
               </div>
-            ))}
-            {invoices.length === 0 && (
-              <p className="text-center text-muted-foreground py-8">
-                No invoices generated yet.
-              </p>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+              <div className="text-left sm:text-right">
+                <p className="text-sm text-muted-foreground">
+                  #{invoice.invoice_number}
+                </p>
+                <p className="text-2xl font-bold text-primary">
+                  ${parseFloat(invoice.total_amount.toString()).toFixed(2)}
+                </p>
+              </div>
+            </div>
+          ))}
+          {invoices.length === 0 && (
+            <p className="text-center text-muted-foreground py-8">
+              No invoices generated yet.
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

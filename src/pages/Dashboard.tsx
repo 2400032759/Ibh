@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Loader2, LogOut, ShieldCheck, FileText } from "lucide-react";
+import { Loader2, LogOut, ShieldCheck, FileText, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -22,6 +23,17 @@ const Dashboard = () => {
       if (!user) {
         navigate("/auth");
         return;
+      }
+
+      // Get username from profiles
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .single();
+
+      if (profile) {
+        setUsername(profile.username);
       }
 
       const { data: roles, error } = await supabase
@@ -51,47 +63,74 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-mesh">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-accent/5 to-background">
-      <div className="container mx-auto p-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-            Invoice Generator
-          </h1>
-          <Button onClick={handleSignOut} variant="outline">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-mesh" />
+      
+      {/* Floating orbs */}
+      <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+      
+      <div className="container mx-auto p-4 sm:p-8 relative z-10">
+        {/* Header */}
+        <div className="glass-card p-6 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div>
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent flex items-center gap-2">
+              <Sparkles className="w-8 h-8 text-primary" />
+              Invoice Hub
+            </h1>
+            <p className="text-muted-foreground mt-1">Welcome back, {username}</p>
+          </div>
+          <Button 
+            onClick={handleSignOut} 
+            variant="outline" 
+            className="glass border-white/20 hover:border-primary/50"
+          >
             <LogOut className="mr-2 h-4 w-4" />
             Sign Out
           </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {/* Action Cards */}
+        <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {isAdmin && (
-            <Button
+            <button
               onClick={() => navigate("/admin")}
-              className="h-48 bg-gradient-primary hover:opacity-90 text-white text-xl font-semibold shadow-elegant"
+              className="glass-card p-8 hover:scale-[1.02] transition-all cursor-pointer group"
             >
-              <div className="flex flex-col items-center gap-4">
-                <ShieldCheck className="h-16 w-16" />
-                <span>Admin Panel</span>
+              <div className="flex flex-col items-center gap-6 text-center">
+                <div className="w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <ShieldCheck className="h-10 w-10 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold mb-2">Admin Panel</h2>
+                  <p className="text-muted-foreground">Manage business, products & sales</p>
+                </div>
               </div>
-            </Button>
+            </button>
           )}
           
-          <Button
+          <button
             onClick={() => navigate("/invoice")}
-            className="h-48 bg-gradient-accent hover:opacity-90 text-white text-xl font-semibold shadow-elegant"
+            className="glass-card p-8 hover:scale-[1.02] transition-all cursor-pointer group"
           >
-            <div className="flex flex-col items-center gap-4">
-              <FileText className="h-16 w-16" />
-              <span>Create Invoice</span>
+            <div className="flex flex-col items-center gap-6 text-center">
+              <div className="w-20 h-20 rounded-full bg-gradient-accent flex items-center justify-center group-hover:scale-110 transition-transform">
+                <FileText className="h-10 w-10 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold mb-2">Create Invoice</h2>
+                <p className="text-muted-foreground">Generate professional invoices</p>
+              </div>
             </div>
-          </Button>
+          </button>
         </div>
       </div>
     </div>

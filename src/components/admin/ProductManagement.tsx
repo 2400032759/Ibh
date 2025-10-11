@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Plus, Edit2, Trash2, Loader2 } from "lucide-react";
 import {
@@ -140,17 +139,17 @@ export const ProductManagement = () => {
   }
 
   return (
-    <Card className="shadow-soft">
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Product Management</CardTitle>
+    <div className="glass-card p-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <h2 className="text-2xl font-bold">Product Management</h2>
         <Dialog open={open} onOpenChange={(o) => { setOpen(o); if (!o) resetForm(); }}>
           <DialogTrigger asChild>
-            <Button className="bg-gradient-primary hover:opacity-90">
+            <Button className="bg-gradient-primary hover:opacity-90 shadow-glass">
               <Plus className="mr-2 h-4 w-4" />
               Add Product
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="glass">
             <DialogHeader>
               <DialogTitle>
                 {editingProduct ? "Edit Product" : "Add New Product"}
@@ -163,6 +162,7 @@ export const ProductManagement = () => {
                   value={productName}
                   onChange={(e) => setProductName(e.target.value)}
                   placeholder="Enter product name"
+                  className="glass border-white/20 focus:border-primary/50"
                 />
               </div>
               <div className="space-y-2">
@@ -171,6 +171,7 @@ export const ProductManagement = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter description (optional)"
+                  className="glass border-white/20 focus:border-primary/50"
                 />
               </div>
               <div className="space-y-2">
@@ -181,60 +182,61 @@ export const ProductManagement = () => {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="0.00"
+                  className="glass border-white/20 focus:border-primary/50"
                 />
               </div>
               <Button
                 onClick={handleSubmit}
                 disabled={!productName || !price}
-                className="w-full bg-gradient-primary hover:opacity-90"
+                className="w-full bg-gradient-primary hover:opacity-90 shadow-glass"
               >
                 {editingProduct ? "Update" : "Add"} Product
               </Button>
             </div>
           </DialogContent>
         </Dialog>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
-            >
-              <div className="flex-1">
-                <h3 className="font-semibold">{product.product_name}</h3>
-                {product.description && (
-                  <p className="text-sm text-muted-foreground">{product.description}</p>
-                )}
-                <p className="text-lg font-bold text-primary mt-1">
-                  ${product.price.toFixed(2)}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  size="icon"
-                  variant="outline"
-                  onClick={() => handleEdit(product)}
-                >
-                  <Edit2 className="h-4 w-4" />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  onClick={() => handleDelete(product.id)}
-                >
-                  <Trash2 className="h-4 w-4 text-destructive" />
-                </Button>
-              </div>
+      </div>
+      <div className="space-y-4">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 glass rounded-lg hover:border-primary/30 transition-all border border-white/10"
+          >
+            <div className="flex-1">
+              <h3 className="font-semibold">{product.product_name}</h3>
+              {product.description && (
+                <p className="text-sm text-muted-foreground">{product.description}</p>
+              )}
+              <p className="text-lg font-bold text-primary mt-1">
+                ${product.price.toFixed(2)}
+              </p>
             </div>
-          ))}
-          {products.length === 0 && (
-            <p className="text-center text-muted-foreground py-8">
-              No products yet. Add your first product to get started.
-            </p>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+            <div className="flex gap-2">
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => handleEdit(product)}
+                className="glass border-white/20 hover:border-primary/50"
+              >
+                <Edit2 className="h-4 w-4" />
+              </Button>
+              <Button
+                size="icon"
+                variant="outline"
+                onClick={() => handleDelete(product.id)}
+                className="glass border-white/20 hover:border-destructive/50"
+              >
+                <Trash2 className="h-4 w-4 text-destructive" />
+              </Button>
+            </div>
+          </div>
+        ))}
+        {products.length === 0 && (
+          <p className="text-center text-muted-foreground py-8">
+            No products yet. Add your first product to get started.
+          </p>
+        )}
+      </div>
+    </div>
   );
 };
