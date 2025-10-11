@@ -28,7 +28,7 @@ export const AuthForm = () => {
           .eq("username", username)
           .maybeSingle();
 
-        if (profileError || !profileData || !profileData.email) {
+        if (profileError || !profileData?.email) {
           throw new Error("Invalid username or password");
         }
 
@@ -47,8 +47,19 @@ export const AuthForm = () => {
         navigate("/dashboard");
       } else {
         // For signup, create a temporary email from username
-        const tempEmail = `${username}@invoice.app`;
+        const tempEmail = `${username.toLowerCase().replace(/[^a-z0-9]/g, '')}@invoicehub.app`;
         
+        // Check if username already exists
+        const { data: existingProfile } = await supabase
+          .from("profiles")
+          .select("username")
+          .eq("username", username)
+          .maybeSingle();
+
+        if (existingProfile) {
+          throw new Error("Username already taken");
+        }
+
         const { error } = await supabase.auth.signUp({
           email: tempEmail,
           password,
@@ -64,10 +75,11 @@ export const AuthForm = () => {
 
         toast({
           title: "Account created!",
-          description: "You can now sign in.",
+          description: "You can now sign in with your username.",
         });
         
         setIsLogin(true);
+        setPassword("");
       }
     } catch (error: any) {
       toast({
