@@ -208,7 +208,7 @@ export const ProductManagement = () => {
                 <p className="text-sm text-muted-foreground">{product.description}</p>
               )}
               <p className="text-lg font-bold text-primary mt-1">
-                ${product.price.toFixed(2)}
+                ₹{product.price.toFixed(2)}
               </p>
             </div>
             <div className="flex gap-2">

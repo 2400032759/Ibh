@@ -63,7 +63,7 @@ export const SalesDashboard = () => {
             <DollarSign className="h-5 w-5 text-primary" />
           </div>
           <p className="text-3xl font-bold text-primary">
-            ${totalRevenue.toFixed(2)}
+            ₹{totalRevenue.toFixed(2)}
           </p>
         </div>
 
@@ -81,7 +81,7 @@ export const SalesDashboard = () => {
             <TrendingUp className="h-5 w-5 text-primary" />
           </div>
           <p className="text-3xl font-bold text-primary">
-            ${invoices.length > 0 ? (totalRevenue / invoices.length).toFixed(2) : "0.00"}
+            ₹{invoices.length > 0 ? (totalRevenue / invoices.length).toFixed(2) : "0.00"}
           </p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export const SalesDashboard = () => {
                   #{invoice.invoice_number}
                 </p>
                 <p className="text-2xl font-bold text-primary">
-                  ${parseFloat(invoice.total_amount.toString()).toFixed(2)}
+                  ₹{parseFloat(invoice.total_amount.toString()).toFixed(2)}
                 </p>
               </div>
             </div>

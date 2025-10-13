@@ -231,8 +231,8 @@ export const generateInvoicePDF = async (data: InvoiceData) => {
               <tr>
                 <td>${item.product.product_name}</td>
                 <td class="text-right">${item.quantity}</td>
-                <td class="text-right">$${item.product.price.toFixed(2)}</td>
-                <td class="text-right">$${(item.product.price * item.quantity).toFixed(2)}</td>
+                <td class="text-right">₹${item.product.price.toFixed(2)}</td>
+                <td class="text-right">₹${(item.product.price * item.quantity).toFixed(2)}</td>
               </tr>
             `
               )
@@ -244,7 +244,7 @@ export const generateInvoicePDF = async (data: InvoiceData) => {
           <div class="totals-box">
             <div class="total-row grand-total">
               <span>Grand Total</span>
-              <span>$${data.total.toFixed(2)}</span>
+              <span>₹${data.total.toFixed(2)}</span>
             </div>
           </div>
         </div>

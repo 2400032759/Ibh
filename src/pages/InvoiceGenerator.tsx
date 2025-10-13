@@ -266,7 +266,7 @@ const InvoiceGenerator = () => {
                 >
                   <div>
                     <p className="font-semibold">{product.product_name}</p>
-                    <p className="text-sm text-primary font-bold">${product.price.toFixed(2)}</p>
+                    <p className="text-sm text-primary font-bold">₹{product.price.toFixed(2)}</p>
                   </div>
                   <Button
                     size="sm"
@@ -293,7 +293,7 @@ const InvoiceGenerator = () => {
                 <div className="flex-1">
                   <p className="font-semibold text-lg">{item.product.product_name}</p>
                   <p className="text-sm text-muted-foreground">
-                    ${item.product.price.toFixed(2)} each
+                    ₹{item.product.price.toFixed(2)} each
                   </p>
                 </div>
                 <div className="flex items-center gap-4">
@@ -310,7 +310,7 @@ const InvoiceGenerator = () => {
                     />
                   </div>
                   <p className="font-bold text-primary text-xl w-28 text-right">
-                    ${(item.product.price * item.quantity).toFixed(2)}
+                    ₹{(item.product.price * item.quantity).toFixed(2)}
                   </p>
                   <Button
                     size="icon"
@@ -332,7 +332,7 @@ const InvoiceGenerator = () => {
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/10">
                 <p className="text-2xl font-bold">Grand Total</p>
                 <p className="text-4xl font-bold bg-gradient-accent bg-clip-text text-transparent">
-                  ${calculateTotal().toFixed(2)}
+                  ₹{calculateTotal().toFixed(2)}
                 </p>
               </div>
             )}
