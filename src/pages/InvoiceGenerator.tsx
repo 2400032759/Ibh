@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, Plus, Trash2, FileDown, Loader2, User, Mail, Phone, MapPin } from "lucide-react";
+import { Plus, Trash2, FileDown, Loader2, User, Mail, Phone, MapPin } from "lucide-react";
 import { generateInvoicePDF } from "@/lib/pdfGenerator";
+import { Navigation } from "@/components/Navigation";
 
 interface Product {
   id: string;
@@ -27,12 +28,48 @@ const InvoiceGenerator = () => {
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
     loadProducts();
+    checkUserRole();
   }, []);
+
+  const checkUserRole = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        navigate("/auth");
+        return;
+      }
+
+      // Get username from profiles
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", user.id)
+        .single();
+
+      if (profile) {
+        setUsername(profile.username);
+      }
+
+      // Check admin role
+      const { data: roles } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", user.id)
+        .single();
+
+      setIsAdmin(roles?.role === "admin");
+    } catch (error: any) {
+      console.error("Role check error:", error);
+    }
+  };
 
   const loadProducts = async () => {
     try {
@@ -184,18 +221,15 @@ const InvoiceGenerator = () => {
       <div className="absolute bottom-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       
       <div className="container mx-auto p-4 sm:p-8 relative z-10">
-        <div className="glass-card p-6 mb-8 flex items-center gap-4">
-          <Button 
-            onClick={() => navigate("/dashboard")} 
-            variant="outline" 
-            size="icon"
-            className="glass border-white/20 hover:border-accent/50"
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-accent bg-clip-text text-transparent">
+        {/* Navigation */}
+        <Navigation username={username} isAdmin={isAdmin} showBackButton currentPage="invoice" />
+        
+        {/* Page Title */}
+        <div className="glass-card p-6 mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-accent bg-clip-text text-transparent">
             Create Invoice
-          </h1>
+          </h2>
+          <p className="text-muted-foreground mt-1">Generate professional invoices for your customers</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
