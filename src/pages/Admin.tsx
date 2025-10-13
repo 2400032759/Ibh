@@ -31,11 +31,15 @@ const Admin = () => {
       const { data: roles, error } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Role fetch error:", error);
+        throw new Error("Could not verify admin access");
+      }
 
-      const hasAdminRole = roles?.some((r) => r.role === "admin");
+      const hasAdminRole = roles?.role === "admin";
       
       if (!hasAdminRole) {
         toast({

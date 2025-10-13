@@ -40,9 +40,12 @@ const Dashboard = () => {
         .from("user_roles")
         .select("role")
         .eq("user_id", user.id)
-        .maybeSingle();
+        .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Role fetch error:", error);
+        throw new Error("Could not verify user role");
+      }
 
       const hasAdminRole = roles?.role === "admin";
       setIsAdmin(hasAdminRole);

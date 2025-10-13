@@ -42,11 +42,16 @@ export const AuthForm = () => {
         if (error) throw error;
 
         // Check user role and redirect accordingly
-        const { data: userRoles } = await supabase
+        const { data: userRoles, error: roleError } = await supabase
           .from("user_roles")
           .select("role")
           .eq("user_id", data.user.id)
-          .maybeSingle();
+          .single();
+
+        if (roleError) {
+          console.error("Role fetch error:", roleError);
+          throw new Error("Could not verify user role. Please contact support.");
+        }
 
         toast({
           title: "Welcome back!",
@@ -98,12 +103,13 @@ export const AuthForm = () => {
 
           if (roleError) {
             console.error("Error creating role:", roleError);
+            throw new Error(`Failed to assign ${role} role. Please try again.`);
           }
         }
 
         toast({
           title: "Account created!",
-          description: `You can now sign in as ${role}.`,
+          description: `You can now sign in as ${role}. Username: ${username}`,
         });
         
         setIsLogin(true);
