@@ -46,11 +46,15 @@ export const AuthForm = () => {
           .from("user_roles")
           .select("role")
           .eq("user_id", data.user.id)
-          .single();
+          .maybeSingle();
 
         if (roleError) {
           console.error("Role fetch error:", roleError);
-          throw new Error("Could not verify user role. Please contact support.");
+          throw new Error("Database error. Please try again.");
+        }
+
+        if (!userRoles) {
+          throw new Error("No role assigned. Please contact support or sign up again.");
         }
 
         toast({
