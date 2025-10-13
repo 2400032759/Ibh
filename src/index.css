@@ -4,114 +4,122 @@
 
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
+iPhone-inspired glassmorphism with Roboto font and iOS palette (soft blues, whites, gentle gradients)
 */
 
 @layer base {
   :root {
-    --background: 220 25% 95%;
-    --foreground: 220 15% 15%;
+    /* iOS-inspired soft palette */
+    --background: 210 40% 98%;
+    --foreground: 210 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 15%;
+    --card-foreground: 210 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --popover-foreground: 210 15% 20%;
 
-    --primary: 238 75% 59%;
+    /* iOS blue - softer and more refined */
+    --primary: 211 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 90%;
-    --secondary-foreground: 220 15% 15%;
+    --secondary: 210 20% 95%;
+    --secondary-foreground: 210 15% 20%;
 
-    --muted: 220 20% 90%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 210 20% 95%;
+    --muted-foreground: 210 12% 50%;
 
-    --accent: 262 83% 58%;
+    /* Accent - soft purple/blue like iOS */
+    --accent: 220 80% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 85%;
-    --input: 220 15% 90%;
-    --ring: 238 75% 59%;
+    --border: 210 20% 90%;
+    --input: 210 20% 95%;
+    --ring: 211 100% 50%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
     
-    --glass-bg: 255 255 255 / 0.7;
-    --glass-border: 255 255 255 / 0.2;
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    --gradient-primary: linear-gradient(135deg, hsl(238 75% 59%), hsl(245 73% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(262 83% 58%), hsl(270 80% 65%));
-    --gradient-mesh: linear-gradient(135deg, hsl(238 75% 59% / 0.1) 0%, hsl(262 83% 58% / 0.1) 50%, hsl(220 75% 59% / 0.1) 100%);
-    --shadow-glass: 0 8px 32px 0 rgba(99, 102, 241, 0.2);
-    --shadow-elegant: 0 10px 40px -10px hsl(238 75% 59% / 0.4);
-    --blur-amount: 16px;
+    /* Enhanced iPhone glassmorphism */
+    --glass-bg: 255 255 255 / 0.72;
+    --glass-border: 255 255 255 / 0.18;
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    
+    /* iOS-inspired gradients - softer blues */
+    --gradient-primary: linear-gradient(135deg, hsl(211 100% 50%), hsl(220 80% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(220 80% 65%), hsl(230 75% 70%));
+    --gradient-mesh: linear-gradient(135deg, hsl(211 100% 50% / 0.08) 0%, hsl(220 80% 65% / 0.08) 50%, hsl(210 70% 60% / 0.08) 100%);
+    
+    /* Softer shadows for iOS feel */
+    --shadow-glass: 0 8px 32px 0 rgba(0, 122, 255, 0.15);
+    --shadow-elegant: 0 10px 40px -10px rgba(0, 122, 255, 0.25);
+    
+    /* iPhone-level blur */
+    --blur-amount: 20px;
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 210 15% 20%;
+    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 95%;
+    --sidebar-accent-foreground: 210 15% 20%;
+    --sidebar-border: 210 20% 90%;
+    --sidebar-ring: 211 100% 50%;
   }
 
   .dark {
-    --background: 220 25% 8%;
-    --foreground: 220 15% 95%;
+    --background: 210 25% 10%;
+    --foreground: 210 15% 95%;
 
-    --card: 220 20% 12%;
-    --card-foreground: 220 15% 95%;
+    --card: 210 20% 12%;
+    --card-foreground: 210 15% 95%;
 
-    --popover: 220 20% 12%;
-    --popover-foreground: 220 15% 95%;
+    --popover: 210 20% 12%;
+    --popover-foreground: 210 15% 95%;
 
-    --primary: 238 75% 59%;
+    --primary: 211 100% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 20% 15%;
-    --secondary-foreground: 220 15% 95%;
+    --secondary: 210 20% 15%;
+    --secondary-foreground: 210 15% 95%;
 
-    --muted: 220 20% 15%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 12% 60%;
 
-    --accent: 262 83% 58%;
+    --accent: 220 80% 65%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 220 15% 95%;
+    --destructive-foreground: 210 15% 95%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 15%;
-    --ring: 238 75% 59%;
+    --border: 210 20% 20%;
+    --input: 210 20% 15%;
+    --ring: 211 100% 50%;
     
-    --glass-bg: 30 30 40 / 0.3;
-    --glass-border: 255 255 255 / 0.1;
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-    --gradient-primary: linear-gradient(135deg, hsl(238 75% 59%), hsl(245 73% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(262 83% 58%), hsl(270 80% 65%));
-    --gradient-mesh: linear-gradient(135deg, hsl(238 75% 59% / 0.15) 0%, hsl(262 83% 58% / 0.15) 50%, hsl(220 75% 59% / 0.15) 100%);
-    --shadow-glass: 0 8px 32px 0 rgba(99, 102, 241, 0.3);
-    --shadow-elegant: 0 10px 40px -10px hsl(238 75% 59% / 0.5);
-    --blur-amount: 20px;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    /* Dark mode glassmorphism */
+    --glass-bg: 30 30 40 / 0.35;
+    --glass-border: 255 255 255 / 0.12;
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    
+    --gradient-primary: linear-gradient(135deg, hsl(211 100% 50%), hsl(220 80% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(220 80% 65%), hsl(230 75% 70%));
+    --gradient-mesh: linear-gradient(135deg, hsl(211 100% 50% / 0.12) 0%, hsl(220 80% 65% / 0.12) 50%, hsl(210 70% 60% / 0.12) 100%);
+    
+    --shadow-glass: 0 8px 32px 0 rgba(0, 122, 255, 0.2);
+    --shadow-elegant: 0 10px 40px -10px rgba(0, 122, 255, 0.35);
+    --blur-amount: 24px;
+    
+    --sidebar-background: 210 25% 10%;
+    --sidebar-foreground: 210 15% 95%;
+    --sidebar-primary: 211 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 20% 15%;
+    --sidebar-accent-foreground: 210 15% 95%;
+    --sidebar-border: 210 20% 20%;
+    --sidebar-ring: 211 100% 50%;
   }
 }
 
@@ -122,14 +130,25 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
+  }
+  
+  button {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 }
 
 @layer utilities {
   .glass {
     background: rgba(var(--glass-bg));
-    backdrop-filter: blur(var(--blur-amount));
-    -webkit-backdrop-filter: blur(var(--blur-amount));
+    backdrop-filter: blur(var(--blur-amount)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--blur-amount)) saturate(180%);
     border: 1px solid rgba(var(--glass-border));
     box-shadow: var(--glass-shadow);
   }
@@ -169,10 +188,15 @@ All colors MUST be HSL.
   
   @keyframes glow {
     from {
-      box-shadow: 0 0 20px hsl(238 75% 59% / 0.3);
+      box-shadow: 0 0 20px rgba(0, 122, 255, 0.3);
     }
     to {
-      box-shadow: 0 0 40px hsl(238 75% 59% / 0.6);
+      box-shadow: 0 0 40px rgba(0, 122, 255, 0.6);
     }
+  }
+  
+  /* iPhone-style smooth transitions */
+  .transition-glass {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

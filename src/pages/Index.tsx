@@ -15,7 +15,26 @@ const Index = () => {
       <div className="absolute bottom-20 right-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
       
-      <div className="container mx-auto px-4 py-12 sm:py-20 relative z-10">
+      <div className="container mx-auto px-4 py-4 sm:py-6 relative z-10">
+        {/* Header Navigation */}
+        <nav className="glass-card p-4 mb-8 sm:mb-12 sticky top-4 z-50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
+              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                Insta Bill
+              </h1>
+            </div>
+            <Button
+              onClick={() => navigate("/auth")}
+              variant="outline"
+              className="glass border-white/20 hover:border-primary/50 transition-glass"
+            >
+              Sign In
+            </Button>
+          </div>
+        </nav>
+
         {/* Hero Section */}
         <div className="text-center mb-16 sm:mb-20 animate-fade-in">
           <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-primary mb-6 animate-float">

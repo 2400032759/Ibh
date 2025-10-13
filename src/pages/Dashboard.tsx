@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Loader2, LogOut, ShieldCheck, FileText, Sparkles } from "lucide-react";
+import { Loader2, ShieldCheck, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { Navigation } from "@/components/Navigation";
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -49,13 +49,6 @@ const Dashboard = () => {
 
       const hasAdminRole = roles?.role === "admin";
       setIsAdmin(hasAdminRole);
-
-      // Auto-redirect based on role
-      if (hasAdminRole) {
-        navigate("/admin");
-      } else {
-        navigate("/invoice");
-      }
     } catch (error: any) {
       toast({
         title: "Error",
@@ -66,11 +59,6 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/auth");
   };
 
   if (loading) {
@@ -91,23 +79,13 @@ const Dashboard = () => {
       <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       
       <div className="container mx-auto p-4 sm:p-8 relative z-10">
-        {/* Header */}
-        <div className="glass-card p-6 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent flex items-center gap-2">
-              <Sparkles className="w-8 h-8 text-primary" />
-              Insta Bill
-            </h1>
-            <p className="text-muted-foreground mt-1">Welcome back, {username}</p>
-          </div>
-          <Button 
-            onClick={handleSignOut} 
-            variant="outline" 
-            className="glass border-white/20 hover:border-primary/50"
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Sign Out
-          </Button>
+        {/* Navigation */}
+        <Navigation username={username} isAdmin={isAdmin} currentPage="dashboard" />
+
+        {/* Welcome Message */}
+        <div className="glass-card p-8 mb-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2">Welcome back, {username}!</h2>
+          <p className="text-muted-foreground">Choose an action below to get started</p>
         </div>
 
         {/* Action Cards */}

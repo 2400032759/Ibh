@@ -1,21 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Building2, Package, TrendingUp, User, LogOut } from "lucide-react";
+import { Building2, Package, TrendingUp, Loader2 } from "lucide-react";
 import { BusinessSettings } from "@/components/admin/BusinessSettings";
 import { ProductManagement } from "@/components/admin/ProductManagement";
 import { SalesDashboard } from "@/components/admin/SalesDashboard";
 import { useToast } from "@/hooks/use-toast";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Navigation } from "@/components/Navigation";
 
 const Admin = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -84,13 +76,12 @@ const Admin = () => {
     }
   };
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/auth");
-  };
-
   if (loading || !isAdmin) {
-    return null;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-mesh">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+      </div>
+    );
   }
 
   return (
@@ -103,40 +94,15 @@ const Admin = () => {
       <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
       
       <div className="container mx-auto p-4 sm:p-8 relative z-10">
-        <div className="glass-card p-6 mb-8 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <Button 
-              onClick={() => navigate("/dashboard")} 
-              variant="outline" 
-              size="icon"
-              className="glass border-white/20 hover:border-primary/50"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Admin Panel
-            </h1>
-          </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="glass border-white/20 hover:border-primary/50 rounded-full">
-                <User className="h-5 w-5" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="glass border-white/20 w-56">
-              <DropdownMenuLabel>
-                <div className="flex flex-col">
-                  <span className="font-semibold">{username}</span>
-                  <span className="text-xs text-muted-foreground">Admin</span>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-white/10" />
-              <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer hover:bg-white/10">
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        {/* Navigation */}
+        <Navigation username={username} isAdmin={isAdmin} showBackButton currentPage="admin" />
+
+        {/* Page Title */}
+        <div className="glass-card p-6 mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            Admin Panel
+          </h2>
+          <p className="text-muted-foreground mt-1">Manage your business settings, products, and sales</p>
         </div>
 
         <Tabs defaultValue="business" className="space-y-6">
