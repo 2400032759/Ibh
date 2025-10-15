@@ -23,24 +23,21 @@ export const AuthForm = () => {
 
     try {
       if (isLogin) {
-        // For login, query the username to get the email
-        const { data: profileData, error: profileError } = await supabase
-          .from("profiles")
-          .select("email")
-          .eq("username", username)
-          .maybeSingle();
+        // Use secure function to lookup email by username
+        const { data: emailData, error: lookupError } = await supabase
+          .rpc("get_email_by_username", { _username: username });
 
-        if (profileError) {
-          console.error("Profile lookup error:", profileError);
+        if (lookupError) {
+          console.error("Username lookup error:", lookupError);
           throw new Error("Database error. Please try again.");
         }
 
-        if (!profileData?.email) {
+        if (!emailData) {
           throw new Error("Username not found. Please check your username or sign up.");
         }
 
         const { data, error } = await supabase.auth.signInWithPassword({
-          email: profileData.email,
+          email: emailData,
           password,
         });
 
