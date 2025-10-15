@@ -30,8 +30,13 @@ export const AuthForm = () => {
           .eq("username", username)
           .maybeSingle();
 
-        if (profileError || !profileData?.email) {
-          throw new Error("Invalid username or password");
+        if (profileError) {
+          console.error("Profile lookup error:", profileError);
+          throw new Error("Database error. Please try again.");
+        }
+
+        if (!profileData?.email) {
+          throw new Error("Username not found. Please check your username or sign up.");
         }
 
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -39,7 +44,12 @@ export const AuthForm = () => {
           password,
         });
 
-        if (error) throw error;
+        if (error) {
+          if (error.message.includes("Invalid login credentials")) {
+            throw new Error("Incorrect password. Please try again.");
+          }
+          throw error;
+        }
 
         // Check user role and redirect accordingly
         const { data: userRoles, error: roleError } = await supabase
@@ -73,14 +83,19 @@ export const AuthForm = () => {
         const tempEmail = `${username.toLowerCase().replace(/[^a-z0-9]/g, '')}@invoicehub.app`;
         
         // Check if username already exists
-        const { data: existingProfile } = await supabase
+        const { data: existingProfile, error: checkError } = await supabase
           .from("profiles")
           .select("username")
           .eq("username", username)
           .maybeSingle();
 
+        if (checkError) {
+          console.error("Username check error:", checkError);
+          throw new Error("Database error. Please try again.");
+        }
+
         if (existingProfile) {
-          throw new Error("Username already taken");
+          throw new Error("Username already taken. Please choose a different username or try logging in.");
         }
 
         const { data, error } = await supabase.auth.signUp({
