@@ -158,7 +158,7 @@ export const AuthForm = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-primary mb-4 animate-float">
             <Sparkles className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Insta Bill
           </h1>
           <p className="text-muted-foreground">

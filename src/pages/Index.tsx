@@ -21,7 +21,7 @@ const Index = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
-              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
                 Insta Bill
               </h1>
             </div>
@@ -40,7 +40,7 @@ const Index = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-primary mb-6 animate-float">
             <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
           </div>
-          <h1 className="text-5xl sm:text-7xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+          <h1 className="text-5xl sm:text-7xl font-bold mb-6 text-foreground">
             Insta Bill
           </h1>
           <p className="text-lg sm:text-2xl text-muted-foreground max-w-3xl mx-auto">

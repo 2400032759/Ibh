@@ -56,7 +56,7 @@ export const Navigation = ({ username, isAdmin, showBackButton, currentPage }: N
           )}
           <div className="flex items-center gap-2">
             <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
-            <h1 className="text-xl sm:text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-xl sm:text-2xl font-bold text-foreground">
               Insta Bill
             </h1>
           </div>

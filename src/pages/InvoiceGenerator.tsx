@@ -212,21 +212,14 @@ const InvoiceGenerator = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-mesh" />
-      
-      {/* Floating orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-      
-      <div className="container mx-auto p-4 sm:p-8 relative z-10">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto p-4 sm:p-8">
         {/* Navigation */}
         <Navigation username={username} isAdmin={isAdmin} showBackButton currentPage="invoice" />
         
         {/* Page Title */}
         <div className="glass-card p-6 mb-6">
-          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-accent bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
             Create Invoice
           </h2>
           <p className="text-muted-foreground mt-1">Generate professional invoices for your customers</p>
@@ -365,7 +358,7 @@ const InvoiceGenerator = () => {
             {selectedItems.length > 0 && (
               <div className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6 border-t border-white/10">
                 <p className="text-2xl font-bold">Grand Total</p>
-                <p className="text-4xl font-bold bg-gradient-accent bg-clip-text text-transparent">
+                <p className="text-4xl font-bold text-primary">
                   ₹{calculateTotal().toFixed(2)}
                 </p>
               </div>

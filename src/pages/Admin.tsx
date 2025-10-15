@@ -78,28 +78,21 @@ const Admin = () => {
 
   if (loading || !isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-mesh">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-mesh" />
-      
-      {/* Floating orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-20 left-20 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-      
-      <div className="container mx-auto p-4 sm:p-8 relative z-10">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto p-4 sm:p-8">
         {/* Navigation */}
         <Navigation username={username} isAdmin={isAdmin} showBackButton currentPage="admin" />
 
         {/* Page Title */}
         <div className="glass-card p-6 mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
             Admin Panel
           </h2>
           <p className="text-muted-foreground mt-1">Manage your business settings, products, and sales</p>
