@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, User, Lock, Sparkles, ShieldCheck } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Icon3D } from "@/components/Icon3D";
 
 export const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -153,21 +154,21 @@ export const AuthForm = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }} />
       
       {/* Glass card */}
-      <div className="glass-card w-full max-w-md p-8 relative z-10 animate-glow">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-primary mb-4 animate-float">
-            <Sparkles className="w-8 h-8 text-white" />
+      <div className="glass-card w-full max-w-md p-8 relative z-10 animate-glow card-3d">
+        <div className="text-center mb-8 animate-fade-in">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-primary mb-4 animate-float-3d transform-3d">
+            <Icon3D icon={Sparkles} size={32} color="white" />
           </div>
-          <h1 className="text-4xl font-bold text-foreground mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2 animate-scale-in">
             Insta Bill
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground animate-fade-up">
             {isLogin ? "Welcome back" : "Create your account"}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
+          <div className="space-y-2 animate-fade-up stagger-1">
             <Label htmlFor="username" className="flex items-center gap-2">
               <User className="w-4 h-4" />
               Username
@@ -180,11 +181,11 @@ export const AuthForm = () => {
               onChange={(e) => setUsername(e.target.value)}
               required
               disabled={loading}
-              className="glass border-white/20 focus:border-primary/50 transition-all"
+              className="glass border-white/20 focus:border-primary/50 transition-smooth"
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-2 animate-fade-up stagger-2">
             <Label htmlFor="password" className="flex items-center gap-2">
               <Lock className="w-4 h-4" />
               Password
@@ -198,12 +199,12 @@ export const AuthForm = () => {
               required
               disabled={loading}
               minLength={6}
-              className="glass border-white/20 focus:border-primary/50 transition-all"
+              className="glass border-white/20 focus:border-primary/50 transition-smooth"
             />
           </div>
 
           {!isLogin && (
-            <div className="space-y-3">
+            <div className="space-y-3 animate-fade-up stagger-3">
               <Label className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4" />
                 Select Role
@@ -213,14 +214,14 @@ export const AuthForm = () => {
                 onValueChange={(value) => setRole(value as "admin" | "user")}
                 className="flex gap-4"
               >
-                <div className="flex items-center space-x-2 glass px-4 py-3 rounded-lg border border-white/20 flex-1 cursor-pointer hover:border-primary/50 transition-all">
+                <div className="flex items-center space-x-2 glass px-4 py-3 rounded-lg border border-white/20 flex-1 cursor-pointer hover-lift transition-smooth">
                   <RadioGroupItem value="admin" id="admin" />
                   <Label htmlFor="admin" className="cursor-pointer flex-1">
                     <div className="font-semibold">Admin</div>
                     <div className="text-xs text-muted-foreground">Full access</div>
                   </Label>
                 </div>
-                <div className="flex items-center space-x-2 glass px-4 py-3 rounded-lg border border-white/20 flex-1 cursor-pointer hover:border-accent/50 transition-all">
+                <div className="flex items-center space-x-2 glass px-4 py-3 rounded-lg border border-white/20 flex-1 cursor-pointer hover-lift transition-smooth">
                   <RadioGroupItem value="user" id="user" />
                   <Label htmlFor="user" className="cursor-pointer flex-1">
                     <div className="font-semibold">User</div>
@@ -233,7 +234,7 @@ export const AuthForm = () => {
 
           <Button
             type="submit"
-            className="w-full bg-gradient-primary hover:opacity-90 text-white font-semibold h-12 shadow-glass transition-all hover:scale-[1.02]"
+            className="w-full btn-interactive bg-gradient-primary hover:opacity-90 text-white font-semibold h-12 shadow-glass animate-fade-up stagger-4"
             disabled={loading}
           >
             {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
@@ -241,11 +242,11 @@ export const AuthForm = () => {
           </Button>
         </form>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center animate-fade-up stagger-5">
           <button
             type="button"
             onClick={() => setIsLogin(!isLogin)}
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            className="text-sm text-muted-foreground hover:text-primary transition-smooth"
             disabled={loading}
           >
             {isLogin

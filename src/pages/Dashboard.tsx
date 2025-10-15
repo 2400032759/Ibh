@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, ShieldCheck, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Navigation } from "@/components/Navigation";
+import { Icon3D } from "@/components/Icon3D";
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -76,7 +77,7 @@ const Dashboard = () => {
         <Navigation username={username} isAdmin={isAdmin} currentPage="dashboard" />
 
         {/* Welcome Message */}
-        <div className="glass-card p-8 mb-8 text-center">
+        <div className="glass-card p-8 mb-8 text-center animate-fade-in">
           <h2 className="text-2xl sm:text-3xl font-bold mb-2">Welcome back, {username}!</h2>
           <p className="text-muted-foreground">Choose an action below to get started</p>
         </div>
@@ -86,11 +87,11 @@ const Dashboard = () => {
           {isAdmin && (
             <button
               onClick={() => navigate("/admin")}
-              className="glass-card p-8 hover:scale-[1.02] transition-all cursor-pointer group"
+              className="glass-card p-8 card-3d hover-lift cursor-pointer group animate-fade-up stagger-1"
             >
               <div className="flex flex-col items-center gap-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <ShieldCheck className="h-10 w-10 text-white" />
+                <div className="w-20 h-20 rounded-full bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-bounce transform-3d">
+                  <Icon3D icon={ShieldCheck} size={40} color="white" />
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold mb-2">Admin Panel</h2>
@@ -102,11 +103,11 @@ const Dashboard = () => {
           
           <button
             onClick={() => navigate("/invoice")}
-            className="glass-card p-8 hover:scale-[1.02] transition-all cursor-pointer group"
+            className="glass-card p-8 card-3d hover-lift cursor-pointer group animate-fade-up stagger-2"
           >
             <div className="flex flex-col items-center gap-6 text-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-accent flex items-center justify-center group-hover:scale-110 transition-transform">
-                <FileText className="h-10 w-10 text-white" />
+              <div className="w-20 h-20 rounded-full bg-gradient-accent flex items-center justify-center group-hover:scale-110 transition-bounce transform-3d">
+                <Icon3D icon={FileText} size={40} color="white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-2">Create Invoice</h2>

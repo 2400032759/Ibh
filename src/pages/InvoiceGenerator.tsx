@@ -218,7 +218,7 @@ const InvoiceGenerator = () => {
         <Navigation username={username} isAdmin={isAdmin} showBackButton currentPage="invoice" />
         
         {/* Page Title */}
-        <div className="glass-card p-6 mb-6">
+        <div className="glass-card p-6 mb-6 animate-fade-in">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
             Create Invoice
           </h2>
@@ -227,7 +227,7 @@ const InvoiceGenerator = () => {
 
         <div className="grid lg:grid-cols-2 gap-6 mb-6">
           {/* Customer Details */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 animate-slide-in-left">
             <h2 className="text-2xl font-bold mb-6">Customer Details</h2>
             <div className="space-y-4">
               <div className="space-y-2">
@@ -283,13 +283,13 @@ const InvoiceGenerator = () => {
           </div>
 
           {/* Products */}
-          <div className="glass-card p-6">
+          <div className="glass-card p-6 animate-slide-in-right">
             <h2 className="text-2xl font-bold mb-6">Select Products</h2>
             <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2">
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center justify-between p-4 glass rounded-lg border border-white/10 hover:border-accent/30 transition-all"
+                  className="flex items-center justify-between p-4 glass rounded-lg border border-white/10 hover-lift transition-smooth"
                 >
                   <div>
                     <p className="font-semibold">{product.product_name}</p>
@@ -298,7 +298,7 @@ const InvoiceGenerator = () => {
                   <Button
                     size="sm"
                     onClick={() => addItem(product)}
-                    className="bg-gradient-accent hover:opacity-90 shadow-glass"
+                    className="btn-interactive bg-gradient-accent hover:opacity-90 shadow-glass"
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
@@ -309,7 +309,7 @@ const InvoiceGenerator = () => {
         </div>
 
         {/* Invoice Items */}
-        <div className="glass-card p-6 mb-6">
+        <div className="glass-card p-6 mb-6 animate-fade-up">
           <h2 className="text-2xl font-bold mb-6">Invoice Items</h2>
           <div className="space-y-4">
             {selectedItems.map((item) => (
@@ -371,7 +371,7 @@ const InvoiceGenerator = () => {
           <Button
             onClick={generateInvoice}
             disabled={loading || selectedItems.length === 0}
-            className="bg-gradient-accent hover:opacity-90 text-white text-lg px-12 py-7 shadow-glass transition-all hover:scale-105 font-semibold"
+            className="btn-interactive bg-gradient-accent hover:opacity-90 text-white text-lg px-12 py-7 shadow-glass font-semibold animate-pulse-glow"
           >
             {loading ? (
               <>

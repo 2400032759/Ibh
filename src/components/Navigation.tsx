@@ -40,7 +40,7 @@ export const Navigation = ({ username, isAdmin, showBackButton, currentPage }: N
   };
 
   return (
-    <nav className="glass-card p-4 mb-6 sticky top-4 z-50">
+    <nav className="glass-card p-4 mb-6 sticky top-4 z-50 animate-slide-in-left">
       <div className="flex items-center justify-between gap-4">
         {/* Logo and Title */}
         <div className="flex items-center gap-4">
@@ -73,7 +73,7 @@ export const Navigation = ({ username, isAdmin, showBackButton, currentPage }: N
                     onClick={() => navigate("/dashboard")}
                     variant="ghost"
                     size="sm"
-                    className="glass border-white/10 hover:border-primary/30 transition-glass"
+                    className="glass border-white/10 hover-lift transition-smooth"
                   >
                     <Home className="h-4 w-4 mr-1" />
                     Dashboard
@@ -84,7 +84,7 @@ export const Navigation = ({ username, isAdmin, showBackButton, currentPage }: N
                     onClick={() => navigate("/admin")}
                     variant="ghost"
                     size="sm"
-                    className="glass border-white/10 hover:border-primary/30 transition-glass"
+                    className="glass border-white/10 hover-lift transition-smooth"
                   >
                     <ShieldCheck className="h-4 w-4 mr-1" />
                     Admin
@@ -95,7 +95,7 @@ export const Navigation = ({ username, isAdmin, showBackButton, currentPage }: N
                     onClick={() => navigate("/invoice")}
                     variant="ghost"
                     size="sm"
-                    className="glass border-white/10 hover:border-accent/30 transition-glass"
+                    className="glass border-white/10 hover-lift transition-smooth"
                   >
                     <FileText className="h-4 w-4 mr-1" />
                     Invoice
@@ -109,7 +109,7 @@ export const Navigation = ({ username, isAdmin, showBackButton, currentPage }: N
                   <Button 
                     variant="outline" 
                     size="icon" 
-                    className="glass border-white/20 hover:border-primary/50 rounded-full transition-glass"
+                    className="glass border-white/20 hover-lift rounded-full transition-smooth"
                   >
                     <User className="h-5 w-5" />
                   </Button>

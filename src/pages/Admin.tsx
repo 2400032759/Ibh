@@ -91,7 +91,7 @@ const Admin = () => {
         <Navigation username={username} isAdmin={isAdmin} showBackButton currentPage="admin" />
 
         {/* Page Title */}
-        <div className="glass-card p-6 mb-8">
+        <div className="glass-card p-6 mb-8 animate-fade-in">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
             Admin Panel
           </h2>
@@ -99,30 +99,30 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="business" className="space-y-6">
-          <TabsList className="glass grid w-full max-w-md grid-cols-3 p-1">
-            <TabsTrigger value="business" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+          <TabsList className="glass grid w-full max-w-md grid-cols-3 p-1 animate-slide-in-left">
+            <TabsTrigger value="business" className="data-[state=active]:bg-primary data-[state=active]:text-white transition-smooth">
               <Building2 className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Business</span>
             </TabsTrigger>
-            <TabsTrigger value="products" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+            <TabsTrigger value="products" className="data-[state=active]:bg-primary data-[state=active]:text-white transition-smooth">
               <Package className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Products</span>
             </TabsTrigger>
-            <TabsTrigger value="sales" className="data-[state=active]:bg-primary data-[state=active]:text-white">
+            <TabsTrigger value="sales" className="data-[state=active]:bg-primary data-[state=active]:text-white transition-smooth">
               <TrendingUp className="h-4 w-4 mr-2" />
               <span className="hidden sm:inline">Sales</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="business">
+          <TabsContent value="business" className="animate-fade-up">
             <BusinessSettings />
           </TabsContent>
 
-          <TabsContent value="products">
+          <TabsContent value="products" className="animate-fade-up">
             <ProductManagement />
           </TabsContent>
 
-          <TabsContent value="sales">
+          <TabsContent value="sales" className="animate-fade-up">
             <SalesDashboard />
           </TabsContent>
         </Tabs>
